@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "php",
+      "request": "launch",
+      "name": "XDebug on DevContainer",
+      "port": 9000,
+      "hostname": "localhost",
+      "pathMappings": {
+        "/var/www/html/blocks/simple_static_html": "${workspaceFolder}" // Workspace directory in the container. /var/www/html/${plugin_type}/${plugin_root_directory}
+      }
+    },
+    {
+      "type": "php",
+      "request": "launch",
+      "name": "Launch currently open script",
+      "program": "${file}",
+      "cwd": "${fileDirname}",
+      "port": 9000
+    }
+  ]
+}
