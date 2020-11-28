@@ -8,7 +8,8 @@
         "editorconfig.editorconfig",
         "ikappas.phpcs",
         "bmewburn.vscode-intelephense-client",
-        "felixfbecker.php-debug"
+        "felixfbecker.php-debug",
+        "ms-azuretools.vscode-docker"
     ],
     "settings": [],
 }
