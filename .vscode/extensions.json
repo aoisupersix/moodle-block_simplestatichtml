@@ -8,6 +8,7 @@
         "editorconfig.editorconfig",
         "bmewburn.vscode-intelephense-client",
         "felixfbecker.php-debug",
+        "ikappas.phpcs",
     ],
     // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
     "unwantedRecommendations": []
