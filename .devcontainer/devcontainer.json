@@ -3,7 +3,9 @@
     "dockerComposeFile": "docker-compose.yml",
     "service": "moodle",
     "workspaceFolder": "/var/www/html/blocks/simple_static_html", // Workspace directory in the container. /var/www/html/${plugin_type}/${plugin_root_directory}
+    "postCreateCommand": "composer install",
     "extensions": [
+        "ikappas.phpcs",
         "bmewburn.vscode-intelephense-client",
         "felixfbecker.php-debug"
     ],

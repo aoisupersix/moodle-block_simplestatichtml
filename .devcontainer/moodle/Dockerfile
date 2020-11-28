@@ -10,6 +10,9 @@ ENV MOODLE_DBPASSWORD password
 ENV MOODLE_DBPORT 3306
 ENV MOODLE_WWWROOT_URL http://localhost
 
+# Install composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
 # Install xdebug
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
