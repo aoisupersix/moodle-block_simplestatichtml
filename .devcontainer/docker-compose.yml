@@ -11,6 +11,8 @@ services:
   moodle:
     build:
       context: ./moodle
+      args:
+        - MOODLE_VERSION=v3.10.0
     environment:
       - MOODLE_DBTYPE=mariadb
       - MOODLE_DBHOST=mariadb
