@@ -2,5 +2,9 @@
     "intelephense.environment.includePaths": [
         "/var/www/html"
     ],
-    "phpcs.standard": "phpcs-ruleset.xml"
+    "phpSniffer.autoDetect": true,
+    "phpSniffer.run": "onType",
+    "[php]": {
+        "editor.defaultFormatter": "wongjn.php-sniffer"
+    }
 }

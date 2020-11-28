@@ -6,7 +6,7 @@
     "postCreateCommand": "composer install",
     "extensions": [
         "editorconfig.editorconfig",
-        "ikappas.phpcs",
+        "wongjn.php-sniffer",
         "bmewburn.vscode-intelephense-client",
         "felixfbecker.php-debug",
         "ms-azuretools.vscode-docker"
