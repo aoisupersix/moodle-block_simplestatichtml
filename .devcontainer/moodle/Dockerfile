@@ -40,3 +40,5 @@ RUN { \
     echo "\$CFG->unicodedb = true;"; \
     echo "require_once(\"\$CFG->dirroot/lib/setup.php\");"; \
 } > /var/www/html/config.php
+
+RUN chown -R www-data:www-data /var/www/html
