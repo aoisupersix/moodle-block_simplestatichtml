@@ -14,7 +14,7 @@ ENV MOODLE_WWWROOT_URL http://localhost
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # Install xdebug
-RUN pecl install xdebug \
+RUN pecl install xdebug-2.9.8 \
     && docker-php-ext-enable xdebug
 
 # clone moodle
