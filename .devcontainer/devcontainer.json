@@ -2,7 +2,7 @@
     "name": "moodle",
     "dockerComposeFile": "docker-compose.yml",
     "service": "moodle",
-    "workspaceFolder": "/var/www/html/blocks/simple_static_html", // Workspace directory in the container. /var/www/html/${plugin_type}/${plugin_root_directory}
+    "workspaceFolder": "/var/www/html/blocks/simplestatichtml", // Workspace directory in the container. /var/www/html/${plugin_type}/${plugin_name}
     "postCreateCommand": "composer install",
     "extensions": [
         "editorconfig.editorconfig",

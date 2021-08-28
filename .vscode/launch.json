@@ -8,7 +8,7 @@
             "port": 9000,
             "hostname": "localhost",
             "pathMappings": {
-                "/var/www/html/blocks/simple_static_html": "${workspaceFolder}" // Workspace directory in the container. /var/www/html/${plugin_type}/${plugin_root_directory}
+                "/var/www/html/blocks/simplestatichtml": "${workspaceFolder}" // Workspace directory in the container. /var/www/html/${plugin_type}/${plugin_name}
             }
         },
         {

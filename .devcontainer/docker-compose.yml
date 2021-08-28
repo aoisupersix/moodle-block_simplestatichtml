@@ -1,13 +1,13 @@
-version: '3'
+version: "3"
 services:
   mariadb:
-    image: 'docker.io/bitnami/mariadb:10.5-debian-10'
+    image: "docker.io/bitnami/mariadb:10.5-debian-10"
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
       - MARIADB_USER=bn_moodle
       - MARIADB_DATABASE=bitnami_moodle
     volumes:
-      - './container-volumes/mariadb_data:/bitnami/mariadb'
+      - "./container-volumes/mariadb_data:/bitnami/mariadb"
   moodle:
     build:
       context: ./moodle
@@ -24,8 +24,8 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - './php.ini:/usr/local/etc/php/php.ini'
-      - './container-volumes/moodledata_data:/var/www/moodledata'
-      - '..:/var/www/html/blocks/simple_static_html:cached' # Workspace directory in the container. /var/www/html/${plugin_type}/${plugin_root_directory}
+      - "./php.ini:/usr/local/etc/php/php.ini"
+      - "./container-volumes/moodledata_data:/var/www/moodledata"
+      - "..:/var/www/html/blocks/simplestatichtml:cached" # Workspace directory in the container. /var/www/html/${plugin_type}/${plugin_name}
     depends_on:
       - mariadb
