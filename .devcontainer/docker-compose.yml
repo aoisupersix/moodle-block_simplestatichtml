@@ -24,7 +24,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - "./php.ini:/usr/local/etc/php/php.ini"
+      - "./moodle/php.ini:/usr/local/etc/php/php.ini"
       - "./moodle/config.php:/var/www/html/config.php"
       - "./container-volumes/moodledata_data:/var/www/moodledata"
       - "./container-volumes/phpunitdata_data:/var/www/phpunitdata"
