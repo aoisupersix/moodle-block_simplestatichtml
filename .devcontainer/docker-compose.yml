@@ -27,6 +27,7 @@ services:
       - "./php.ini:/usr/local/etc/php/php.ini"
       - "./moodle/config.php:/var/www/html/config.php"
       - "./container-volumes/moodledata_data:/var/www/moodledata"
+      - "./container-volumes/phpunitdata_data:/var/www/phpunitdata"
       - "..:/var/www/html/blocks/simplestatichtml:cached" # Workspace directory in the container. /var/www/html/${plugin_type}/${plugin_name}
     depends_on:
       - mariadb
