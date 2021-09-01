@@ -25,7 +25,7 @@ RUN echo 'ja_JP.UTF-8 UTF-8' >> /etc/locale.gen \
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # Install xdebug
-RUN pecl install xdebug-2.9.8 \
+RUN pecl install xdebug-3.0.4 \
     && docker-php-ext-enable xdebug
 
 USER www-data
