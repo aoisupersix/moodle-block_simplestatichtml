@@ -1,7 +1,7 @@
 <?php
-class block_simple_static_html extends block_base {
+class block_simplestatichtml extends block_base {
     public function init() {
-        $this->title = get_string('simple_static_html', 'block_simple_static_html');
+        $this->title = get_string('simplestatichtml', 'block_simplestatichtml');
     }
 
     public function get_content() {
