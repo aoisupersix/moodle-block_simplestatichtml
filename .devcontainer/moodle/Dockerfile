@@ -11,6 +11,16 @@ ENV MOODLE_PREFIX mdl_
 ENV MOODLE_DBPORT 3306
 ENV MOODLE_WWWROOT_URL http://localhost
 
+# Set timezone
+ENV TZ Asia/Tokyo
+RUN echo "${TZ}" > /etc/timezone \
+    && dpkg-reconfigure -f noninteractive tzdata
+
+# Set locale
+RUN echo 'ja_JP.UTF-8 UTF-8' >> /etc/locale.gen \
+    && locale-gen \
+    && update-locale LANG=ja_JP.UTF-8
+
 # Install composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
@@ -18,7 +28,9 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN pecl install xdebug-2.9.8 \
     && docker-php-ext-enable xdebug
 
-# clone moodle
-RUN git clone https://github.com/moodle/moodle -b $MOODLE_VERSION .
+USER www-data
 
-RUN chown -R www-data:www-data /var/www/html
+# Clone moodle
+RUN git clone https://github.com/moodle/moodle -b $MOODLE_VERSION --single-branch --depth 1 .
+
+USER root
