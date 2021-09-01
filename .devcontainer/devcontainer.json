@@ -3,7 +3,7 @@
     "dockerComposeFile": "docker-compose.yml",
     "service": "moodle",
     "workspaceFolder": "/var/www/html/blocks/simplestatichtml", // Workspace directory in the container. /var/www/html/${plugin_type}/${plugin_name}
-    "postCreateCommand": "composer install",
+    "postCreateCommand": "chmod -R a+x scripts && scripts/fix_moodle_volume_owner.sh && composer install",
     "extensions": [
         "editorconfig.editorconfig",
         "wongjn.php-sniffer",
