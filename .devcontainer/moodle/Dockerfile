@@ -7,38 +7,30 @@ ENV MOODLE_DBHOST localhost
 ENV MOODLE_DBNAME moodle
 ENV MOODLE_DBUSER moodle
 ENV MOODLE_DBPASSWORD password
+ENV MOODLE_PREFIX mdl_
 ENV MOODLE_DBPORT 3306
 ENV MOODLE_WWWROOT_URL http://localhost
+
+# Set timezone
+ENV TZ Asia/Tokyo
+RUN echo "${TZ}" > /etc/timezone \
+    && dpkg-reconfigure -f noninteractive tzdata
+
+# Set locale
+RUN echo 'ja_JP.UTF-8 UTF-8' >> /etc/locale.gen \
+    && locale-gen \
+    && update-locale LANG=ja_JP.UTF-8
 
 # Install composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # Install xdebug
-RUN pecl install xdebug-2.9.8 \
+RUN pecl install xdebug-3.0.4 \
     && docker-php-ext-enable xdebug
 
-# clone moodle
-RUN git clone https://github.com/moodle/moodle -b $MOODLE_VERSION .
+USER www-data
 
-RUN { \
-    echo "<?php"; \
-    echo "unset(\$CFG);"; \
-    echo "global \$CFG;"; \
-    echo "\$CFG = new stdClass();"; \
-    echo "\$CFG->dbtype = getEnv('MOODLE_DBTYPE');"; \
-    echo "\$CFG->dbhost = getEnv('MOODLE_DBHOST');"; \
-    echo "\$CFG->dbname = getEnv('MOODLE_DBNAME');"; \
-    echo "\$CFG->dbuser = getEnv('MOODLE_DBUSER');"; \
-    echo "\$CFG->dbpass = getEnv('MOODLE_DBPASSWORD');"; \
-    echo "\$CFG->dboptions = array("; \
-    echo "    'dbport' => getEnv('MOODLE_DBPORT'),"; \
-    echo "    );"; \
-    echo "\$CFG->wwwroot = getEnv('MOODLE_WWWROOT_URL');"; \
-    echo "\$CFG->dirroot = '/var/www/html';"; \
-    echo "\$CFG->dataroot = '/var/www/moodledata';"; \
-    echo "\$CFG->admin = 'admin';"; \
-    echo "\$CFG->unicodedb = true;"; \
-    echo "require_once(\"\$CFG->dirroot/lib/setup.php\");"; \
-} > /var/www/html/config.php
+# Clone moodle
+RUN git clone https://github.com/moodle/moodle -b $MOODLE_VERSION --single-branch --depth 1 .
 
-RUN chown -R www-data:www-data /var/www/html
+USER root

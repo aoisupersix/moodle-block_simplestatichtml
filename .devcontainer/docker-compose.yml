@@ -1,13 +1,27 @@
-version: '3'
+version: "3"
 services:
   mariadb:
-    image: 'docker.io/bitnami/mariadb:10.5-debian-10'
+    image: "docker.io/bitnami/mariadb:10.5-debian-10"
+    user: root
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
-      - MARIADB_USER=bn_moodle
-      - MARIADB_DATABASE=bitnami_moodle
+      - MARIADB_USER=moodle
+      - MARIADB_DATABASE=moodle_db
     volumes:
-      - './container-volumes/mariadb_data:/bitnami/mariadb'
+      - "./container-volumes/mariadb_data:/bitnami/mariadb"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mariadb
+      - PMA_USER=moodle
+      - PMA_PASSWORD=
+    ports:
+      - 8081:80
+    volumes:
+      - "./container-volumes/phpmyadmin_sessions:/sessions"
+    depends_on:
+      - mariadb
   moodle:
     build:
       context: ./moodle
@@ -16,16 +30,18 @@ services:
     environment:
       - MOODLE_DBTYPE=mariadb
       - MOODLE_DBHOST=mariadb
-      - MOODLE_DBNAME=bitnami_moodle
+      - MOODLE_DBNAME=moodle_db
       - MOODLE_DBPORT=3306
-      - MOODLE_DBUSER=bn_moodle
+      - MOODLE_DBUSER=moodle
       - MOODLE_DBPASSWORD=
       - MOODLE_WWWROOT_URL=http://localhost:8080
     ports:
       - "8080:80"
     volumes:
-      - './php.ini:/usr/local/etc/php/php.ini'
-      - './container-volumes/moodledata_data:/var/www/moodledata'
-      - '..:/var/www/html/blocks/simple_static_html:cached' # Workspace directory in the container. /var/www/html/${plugin_type}/${plugin_root_directory}
+      - "./moodle/php.ini:/usr/local/etc/php/php.ini"
+      - "./moodle/config.php:/var/www/html/config.php"
+      - "./container-volumes/moodledata_data:/var/www/moodledata"
+      - "./container-volumes/phpunitdata_data:/var/www/phpunitdata"
+      - "..:/var/www/html/blocks/simplestatichtml:cached" # Workspace directory in the container. /var/www/html/${plugin_type}/${plugin_name}
     depends_on:
       - mariadb
